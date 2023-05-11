@@ -19,7 +19,7 @@ const getDashboard = async (req, res) => {
         let dashboardData = await dashboardModel.find(obj);
         res.status(200).send(dashboardData);
     } catch (error) {
-        res.status(400).send({ message: err.message })
+        res.status(400).send({ message: error.message })
     }
 }
 
@@ -30,7 +30,7 @@ const postDashboard = async (req, res) => {
         await newLeaderboardUser.save();
         res.status(200).send({ message: "user Added Successfull" })
     } catch (error) {
-        res.status(400).send({ message: err.message })
+        res.status(400).send({ message: error.message })
     }
 }
 
