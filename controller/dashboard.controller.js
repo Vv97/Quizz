@@ -3,8 +3,20 @@ const dashboardModel = require("../model/dashboard.model");
 
 
 const getDashboard = async (req, res) => {
+    let { typeQuizz, title } = req.query;
+    let obj = {};
     try {
-        let dashboardData = await dashboardModel.find();
+
+        if (typeQuizz) {
+            obj.typeQuizz = typeQuizz
+        }
+
+        if (title) {
+            obj.title = title
+        }
+
+
+        let dashboardData = await dashboardModel.find(obj);
         res.status(200).send(dashboardData);
     } catch (error) {
         res.status(400).send({ message: err.message })
