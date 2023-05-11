@@ -16,10 +16,10 @@ const UserRegister = async (req, res) => {
 
                 await newUser.save();
                 res.status(201).send({ message: "Signup successfull" })
-            } else res.status(400).send({ message: err.message })
+            } else res.status(400).send({ message: err })
         })
     } catch (error) {
-        res.status(400).send({ message: err.message })
+        res.status(400).send({ message: error.message })
     }
 }
 
@@ -30,13 +30,13 @@ const userLogin = async (req, res) => {
         const userExist = await userModel.findOne({ email });
         if (userExist) {
             bcrypt.compare(password, userExist.password, (err, result) => {
-                result ? res.status(201).send({ message: "Login Successful", token: jwt.sign({ userID: userExist._id }, process.env.jwt_key) }) : res.status(400).send({ message: err.message })
+                result ? res.status(201).send({ message: "Login Successful", token: jwt.sign({ userID: userExist._id }, process.env.jwt_key) }) : res.status(400).send({ message: err })
             })
 
         } else res.status(400).send({ message: "Invalid Credentials" })
 
     } catch (error) {
-        res.status(400).send({ message: err.message })
+        res.status(400).send({ message: error.message })
     }
 }
 
